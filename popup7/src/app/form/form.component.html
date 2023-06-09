@@ -5,18 +5,15 @@
       <form action="" [formGroup]="form">
         <mat-form-field class="chip-list">
           <mat-label>Enter emails:...</mat-label>
-          <mat-chip-grid #chipGrid color="accent" formControlName="emailsField">
-            <mat-chip-row
+          <mat-chip-list #chipGrid color="accent" formControlName="emailsField">
+            <mat-chip
               *ngFor="let email of emailChips"
               (removed)="remove(email)"
-              [editable]="chipConfig.isEditable"
               (edited)="edit(email, $event)"
             >
               {{ email }}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
             <input
               #input
               type="email"
@@ -27,7 +24,7 @@
               [matChipInputAddOnBlur]="addOnBlur"
               (matChipInputTokenEnd)="add($event)"
             />
-          </mat-chip-grid>
+          </mat-chip-list>
         </mat-form-field>
       </form>
     </ng-container>
