@@ -7,12 +7,12 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-// import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MatDialog } from "@angular/material/dialog";
 import { Observable, Subscription } from "rxjs";
 import { DialogComponent } from "src/app/shared/components/dialog/dialog.component";
 import { DialogService } from "src/app/shared/services/dialog.service";
+import { ENTER, COMMA } from "@angular/cdk/keycodes";
 
 @Component({
   selector: "app-form",
@@ -33,8 +33,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public emailChips: string[] = [];
   public addOnBlur = true;
-  // public readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  public readonly separatorKeysCodes = ["13", "188"];
+  public readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   private dialogSubscription: Subscription;
   private emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -72,6 +71,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   handleSubmitClick() {
+    this.emailsField.setValue(this.emailChips);
     this.dialogService.handleEmailsArray(this.emailsField.value);
 
     this.clear();
@@ -95,22 +95,6 @@ export class FormComponent implements OnInit, OnDestroy {
       this.emailChips.splice(index, 1);
     }
   }
-
-  // edit(email: string, event: MatChipEditedEvent) {
-  //   const value = event.value.trim();
-
-  //   // Remove email if it no longer has a name
-  //   if (!value) {
-  //     this.remove(email);
-  //     return;
-  //   }
-
-  //   // Edit existing email
-  //   const index = this.emailChips.indexOf(email);
-  //   if (index >= 0) {
-  //     this.emailChips[index] = value;
-  //   }
-  // }
 
   private initialize(): void {
     this.newEmails = this.dialogService.newEmails$;
