@@ -33,7 +33,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public emailChips: string[] = [];
   public addOnBlur = true;
-  public readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  public readonly separatorKeysCodes = [ENTER, COMMA];
 
   private dialogSubscription: Subscription;
   private emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
