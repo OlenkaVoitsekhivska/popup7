@@ -9,7 +9,6 @@
             <mat-chip
               *ngFor="let email of emailChips"
               (removed)="remove(email)"
-              (edited)="edit(email, $event)"
             >
               {{ email }}
               <mat-icon matChipRemove>cancel</mat-icon>
