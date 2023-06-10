@@ -27,9 +27,6 @@ export class FormComponent implements OnInit, OnDestroy {
   public newEmails: Observable<string[]>;
   public existingEmailsForDisplay: Observable<string[]>;
   public duplicateEmails: Observable<string[]>;
-  public chipConfig = {
-    isEditable: true,
-  };
   public form: FormGroup;
   public emailChips: string[] = [];
   public addOnBlur = true;

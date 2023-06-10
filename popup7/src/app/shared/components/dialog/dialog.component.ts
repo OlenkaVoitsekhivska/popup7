@@ -89,7 +89,7 @@ export class DialogComponent implements OnInit, OnDestroy {
     return uniqueEmails;
   }
 
-  private closeDialog() {
+  closeDialog() {
     this.dialogRef.close();
   }
 

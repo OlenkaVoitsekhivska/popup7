@@ -21,6 +21,7 @@ import { CheckboxComponent } from "./components/checkbox/checkbox.component";
 import { CardComponent } from "./components/card/card.component";
 import { DialogComponent } from "./components/dialog/dialog.component";
 import { ChipListStaticComponent } from "./components/chip-list-static/chip-list-static.component";
+import { CloseDialogDirective } from "./directives/close-dialog.directive";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ChipListStaticComponent } from "./components/chip-list-static/chip-list
     CardComponent,
     DialogComponent,
     ChipListStaticComponent,
+    CloseDialogDirective,
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { ChipListStaticComponent } from "./components/chip-list-static/chip-list
     MatIconModule,
     ChipListStaticComponent,
     MatDividerModule,
+    CloseDialogDirective,
   ],
 })
 export class SharedModule {}

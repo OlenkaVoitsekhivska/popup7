@@ -94,7 +94,7 @@ export class DialogService {
     return this.getUniqueEmails(commonEmails);
   }
 
-  getUniqueEmails(emails: string[]): string[] {
+  private getUniqueEmails(emails: string[]): string[] {
     const uniqueEmails: string[] = [];
 
     for (const email of emails) {

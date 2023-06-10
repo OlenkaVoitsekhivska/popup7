@@ -33,7 +33,8 @@
             aria-hidden="false"
             aria-label="Example home icon"
             fontIcon="info"
-          ></mat-icon>
+            >info</mat-icon
+          >
           <p>
             If an email appears in a project more than once, the user will be
             given additional test attempts.
@@ -55,9 +56,10 @@
   <mat-dialog-actions align="center">
     <app-button
       label="cancel"
-      mat-dialog-close
       class="cancel-btn"
       color="accent"
+      appCloseDialog
+      (customSubmit)="closeDialog()"
     ></app-button>
     <app-button
       label="{{ checkboxState.value ? 'Save all emails' : 'Save only unique' }}"

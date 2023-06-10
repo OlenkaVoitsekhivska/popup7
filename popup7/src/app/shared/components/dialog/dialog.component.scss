@@ -1,4 +1,7 @@
 .dialog{
+   h3{
+      margin:0;
+   }
    form{
     display: flex;
     flex-direction: column;
@@ -9,7 +12,7 @@
    margin-right:50px;
 }
 
-::ng-deep .notification .mat-mdc-card{
+::ng-deep .notification .mat-card{
    background-color: rgb(215, 243, 250) !important;
    color: rgb(5, 68, 83) !important;
    text-align: justify;
