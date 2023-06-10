@@ -29,6 +29,7 @@
     </ng-container>
     <app-button
       label="submit"
+      [disabled]="emailChips.length === 0"
       (customSubmit)="handleSubmitClick()"
     ></app-button>
   </app-card>

@@ -101,7 +101,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      emailsField: [[], [Validators.required, Validators.email]],
+      emailsField: [[]],
     });
   }
   private validateEmail(email: string): boolean {
