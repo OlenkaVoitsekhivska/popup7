@@ -6,13 +6,14 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
-import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {MatDialog} from '@angular/material/dialog';
+import {Observable, Subscription} from 'rxjs';
+import {DialogComponent} from 'src/app/shared/components/dialog/dialog.component';
+import {DialogService} from 'src/app/shared/services/dialog.service';
+import {ENTER, COMMA} from '@angular/cdk/keycodes';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
@@ -21,6 +22,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent implements OnInit, OnDestroy {
+
   @ViewChild('input') input: ElementRef<HTMLInputElement> | undefined =
     undefined;
 
@@ -31,9 +33,11 @@ export class FormComponent implements OnInit, OnDestroy {
   public emailChips: string[] = [];
   public addOnBlur = true;
   public readonly separatorKeysCodes = [ENTER, COMMA];
+  public existingStatic: string[] = [];
 
   private dialogSubscription: Subscription;
   private emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  private existingEmailsSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -43,8 +47,11 @@ export class FormComponent implements OnInit, OnDestroy {
     this.initializeForm();
   }
 
+
   ngOnInit(): void {
     this.initialize();
+
+    this.existingEmailsSubscription = this.existingEmailsForDisplay.subscribe();
 
     this.dialogSubscription = this.dialogService.showDialog$.subscribe(
       (data) => {
@@ -57,14 +64,23 @@ export class FormComponent implements OnInit, OnDestroy {
     );
   }
 
+
   ngOnDestroy(): void {
-    if (this.dialogSubscription) {
-      this.dialogSubscription.unsubscribe();
-    }
+    [this.dialogSubscription, this.existingEmailsSubscription].forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
   }
 
   get emailsField() {
     return this.form.get('emailsField');
+  }
+
+  getEmailChipColor(email: string): string {
+    const occurrenceCount = this.emailChips.filter(e => e === email).length;
+    const existingCount = this.existingStatic.filter(e => e === email).length;
+    return occurrenceCount > 1 || existingCount > 0 ? 'yellowChip' : 'defaultChip';
   }
 
   handleSubmitClick() {
@@ -80,6 +96,8 @@ export class FormComponent implements OnInit, OnDestroy {
     // Add email
     if (value && this.validateEmail(value)) {
       this.emailChips.push(value);
+      this.dialogService.handleInput(this.emailChips);
+      this.getEmailChipColor(value);
     }
     // Clear the input value
     event.input.value = '';
@@ -95,20 +113,29 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private initialize(): void {
     this.newEmails = this.dialogService.newEmails$;
-    this.existingEmailsForDisplay = this.dialogService.existingForDisplay$;
+
+    this.existingEmailsForDisplay = this.dialogService.existingForDisplay$.pipe(
+      map(emails => emails),
+      tap(emails => {
+        this.existingStatic = emails;
+        return emails;
+      })
+    );
+
     this.duplicateEmails = this.dialogService.duplicates$;
   }
 
-  private initializeForm(): void {
+  private initializeForm() {
     this.form = this.fb.group({
       emailsField: [[]],
     });
   }
-  private validateEmail(email: string): boolean {
+
+  private validateEmail(email: string) {
     return this.emailPattern.test(email);
   }
 
-  private openDialog(): void {
+  private openDialog() {
     this.dialog.open(DialogComponent, {
       width: '70%',
     });
@@ -116,9 +143,9 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private clear() {
     this.emailChips = [];
-
     if (this.input) {
       this.input.nativeElement.value = '';
     }
   }
+
 }

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -30,13 +30,14 @@ export class DialogService {
   private existing = new BehaviorSubject<string[]>([]);
   public existing$ = this.existing.asObservable();
 
-  constructor() {}
+  constructor() {
+  }
 
   nextEmptyIntoNewEmails() {
     this.newEmail.next([]);
   }
 
-  handleEmailsArray(emails: string[]) {
+  handleInput(emails: string[]) {
     this.newEmail.next(emails);
 
     const duplicates = this.findDuplicateEmails(emails);
@@ -44,6 +45,11 @@ export class DialogService {
 
     const existing = this.findCommonEmails(this.existingEmails, emails);
     this.existing.next(existing);
+    return [existing, duplicates];
+  }
+
+  handleEmailsArray(emails: string[]) {
+    const [existing, duplicates] = this.handleInput(emails);
 
     if (!duplicates.length && !existing.length) {
       this.showDialog.next(false);
@@ -66,11 +72,11 @@ export class DialogService {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < emailsCopy.length; i++) {
       if (emailsCopy[i] === emailsCopy[i + 1]) {
-          duplicates = [...duplicates, emailsCopy[i], emailsCopy[i + 1]];
-          i += 2;
+        duplicates = [...duplicates, emailsCopy[i], emailsCopy[i + 1]];
+        i += 2;
       }
       if (duplicates.includes(emailsCopy[i])) {
-          duplicates.push(emailsCopy[i]);
+        duplicates.push(emailsCopy[i]);
       }
     }
     return duplicates;
