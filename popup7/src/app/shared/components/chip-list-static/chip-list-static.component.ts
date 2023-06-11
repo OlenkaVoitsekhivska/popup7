@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ChipListStaticComponent {
   @Input() public emails: string[] = [];
+  @Input() public color = 'defaultChip';
 }

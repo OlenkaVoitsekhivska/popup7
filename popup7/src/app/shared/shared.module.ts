@@ -32,6 +32,7 @@ import { CloseDialogDirective } from './directives/close-dialog.directive';
     DialogComponent,
     ChipListStaticComponent,
     CloseDialogDirective,
+
   ],
   imports: [
     CommonModule,

@@ -5,10 +5,11 @@
       <form action="" [formGroup]="form">
         <mat-form-field class="chip-list">
           <mat-label>Enter emails:...</mat-label>
-          <mat-chip-list #chipGrid formControlName="emailsField">
+          <mat-chip-list #chipGrid formControlName="emailsField" >
             <mat-chip
               *ngFor="let email of emailChips"
               (removed)="remove(email)"
+              [ngClass]="getEmailChipColor(email)"
             >
               {{ email }}
               <mat-icon matChipRemove>cancel</mat-icon>
