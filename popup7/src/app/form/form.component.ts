@@ -5,23 +5,23 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { MatDialog } from "@angular/material/dialog";
-import { Observable, Subscription } from "rxjs";
-import { DialogComponent } from "src/app/shared/components/dialog/dialog.component";
-import { DialogService } from "src/app/shared/services/dialog.service";
-import { ENTER, COMMA } from "@angular/cdk/keycodes";
+} from '@angular/core';
+import { FormBuilder, FormGroup} from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, Subscription } from 'rxjs';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
-  selector: "app-form",
-  templateUrl: "./form.component.html",
-  styleUrls: ["./form.component.scss"],
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent implements OnInit, OnDestroy {
-  @ViewChild("input") input: ElementRef<HTMLInputElement> | undefined =
+  @ViewChild('input') input: ElementRef<HTMLInputElement> | undefined =
     undefined;
 
   public newEmails: Observable<string[]>;
@@ -64,7 +64,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   get emailsField() {
-    return this.form.get("emailsField");
+    return this.form.get('emailsField');
   }
 
   handleSubmitClick() {
@@ -82,7 +82,7 @@ export class FormComponent implements OnInit, OnDestroy {
       this.emailChips.push(value);
     }
     // Clear the input value
-    event.input.value = "";
+    event.input.value = '';
   }
 
   remove(email: string): void {
@@ -110,7 +110,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private openDialog(): void {
     this.dialog.open(DialogComponent, {
-      width: "70%",
+      width: '70%',
     });
   }
 
@@ -118,7 +118,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.emailChips = [];
 
     if (this.input) {
-      this.input.nativeElement.value = "";
+      this.input.nativeElement.value = '';
     }
   }
 }

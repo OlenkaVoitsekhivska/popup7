@@ -4,17 +4,17 @@ import {
   Inject,
   OnDestroy,
   OnInit,
-} from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Observable, Subscription, combineLatest } from "rxjs";
-import { map, tap } from "rxjs/operators";
-import { DialogService } from "../../services/dialog.service";
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable, Subscription, combineLatest } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
-  selector: "app-dialog",
-  templateUrl: "./dialog.component.html",
-  styleUrls: ["./dialog.component.scss"],
+  selector: 'app-dialog',
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent implements OnInit, OnDestroy {
@@ -52,7 +52,7 @@ export class DialogComponent implements OnInit, OnDestroy {
   }
 
   get checkboxState() {
-    return this.form.get("saveAllCheckbox");
+    return this.form.get('saveAllCheckbox');
   }
 
   handleSubmit() {

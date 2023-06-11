@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: "app-button",
-  templateUrl: "./button.component.html",
-  styleUrls: ["./button.component.scss"],
+  selector: 'app-button',
+  templateUrl: './button.component.html',
+  styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() public label: string = "";
-  @Input() public color: string = "primary";
-  @Input() public disabled: boolean = false;
+  @Input() public label = '';
+  @Input() public color = 'primary';
+  @Input() public disabled = false;
 
   @Output() private customSubmit = new EventEmitter<void>();
 

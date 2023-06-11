@@ -14,9 +14,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() public label: string = '';
-  @Input() public placeholder: string = '';
-  @Input() public disabled: boolean = false;
+  @Input() public label = '';
+  @Input() public placeholder = '';
+  @Input() public disabled = false;
   public value = '';
 
   private touched = false;

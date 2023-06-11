@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class DialogService {
   private existingEmails = [
-    "johndoe@example.com",
-    "alice.smith@example.com",
-    "markwilson@example.com",
-    "emilyjones@example.com",
-    "davidbrown@example.com",
+    'johndoe@example.com',
+    'alice.smith@example.com',
+    'markwilson@example.com',
+    'emilyjones@example.com',
+    'davidbrown@example.com',
   ];
   private existingForDisplay = new BehaviorSubject<string[]>(
     this.existingEmails
@@ -31,10 +31,6 @@ export class DialogService {
   public existing$ = this.existing.asObservable();
 
   constructor() {}
-
-  toggleDialogState(value: boolean): void {
-    this.showDialog.next(value);
-  }
 
   nextEmptyIntoNewEmails() {
     this.newEmail.next([]);
