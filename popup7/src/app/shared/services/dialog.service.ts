@@ -61,19 +61,19 @@ export class DialogService {
   }
 
   private findDuplicateEmails(emails: string[]): string[] {
-    let duplicateEmails: string[] = [];
-    const uniqueEmails = new Set<string>();
-
-    for (const email of emails) {
-      if (uniqueEmails.has(email)) {
-        duplicateEmails = duplicateEmails.concat(email);
-        uniqueEmails.delete(email);
-      } else {
-        uniqueEmails.add(email);
+    const emailsCopy = [...emails].sort((a, b) => a.localeCompare((b)));
+    let duplicates = [];
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < emailsCopy.length; i++) {
+      if (emailsCopy[i] === emailsCopy[i + 1]) {
+          duplicates = [...duplicates, emailsCopy[i], emailsCopy[i + 1]];
+          i += 2;
+      }
+      if (duplicates.includes(emailsCopy[i])) {
+          duplicates.push(emailsCopy[i]);
       }
     }
-
-    return duplicateEmails;
+    return duplicates;
   }
 
   private findCommonEmails(
